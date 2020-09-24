@@ -1,6 +1,8 @@
 library(tidyverse)
 library(arrow)
 
+#teste pavao
+
 # Loading data
 matriz_od_aerea <-
   read_parquet("./bd_tele_processed/matriz_od_aerea.gz.parquet")
