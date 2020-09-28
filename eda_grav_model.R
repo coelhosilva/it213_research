@@ -22,7 +22,7 @@ library(tidyr)
 #################################
 matriz_od_aerea <- read_parquet("./bd_tele_processed/matriz_od_aerea.gz.parquet") # matriz aérea processada em parquet
 cidades <- read_parquet("./bd_tele_processed/cidades.gz.parquet") # cidades processada em parquet
-cidades_geobr <- readRDS("cidades_geobr.rds") # Dados das cidades Brasileiras previamente capturados com o geobr (vide grab_cities_geobr.R)
+cidades_geobr <- readRDS("./extra_data/cidades_geobr.rds") # Dados das cidades Brasileiras previamente capturados com o geobr (vide grab_cities_geobr.R)
 
 #################################
 # Tratamento dos dados

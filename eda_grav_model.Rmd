@@ -168,13 +168,16 @@ k é a constante de proporcionalidade;
 $\mu$, $\alpha$ e $\beta$ são os parâmetros do modelo.
 
 Cenário de exemplo: viagens entre os bairros de uma cidade.
+
   - Exemplo de $V_i$: população. Pode-se argumentar que, quanto mais gente em um bairro, maior o fluxo de saída.
   - Exemplo de $W_j$: postos de trabalho. Pode-se argumentar que, quanto mais postos de trabalho em um bairro, mais pessoas fariam o traslado diariamente em direção ao bairro.
 
 A fazer:
+
   - Pegar os dados de população do IBGE e consolidar com a matriz OD;
   - Selecionar possíveis candidatos para $V_i$. Renda? População?
   - Selecionar possíveis candidatos para $W_j$. PIB?
+  - Avaliar dados socioeconômicos disponíveis em http://atlasbrasil.org.br/2013/pt/consulta/.
 
 # Conclusão
 
