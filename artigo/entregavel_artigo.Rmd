@@ -129,6 +129,13 @@ Explicar as análises feitas para o desenvolvimento do modelo gravitacional. Aqu
 
 Explicar as análises feitas para o desenvolvimento do modelo.
 
+
+```{r figuraExemplo, echo=FALSE , message=FALSE, fig.cap="Título da figura", out.width = "100%", fig.align="center",fig.pos = 'H'}
+
+knitr::include_graphics("../figures/sample_figure_1.png")
+
+```
+
 # Conclusões
 
 Conclusão dos resultados obtidos.

@@ -20,9 +20,9 @@ library(tidyr)
 #################################
 # Importação dos dados
 #################################
-matriz_od_aerea <- read_parquet("./bd_tele_processed/matriz_od_aerea.gz.parquet") # matriz aérea processada em parquet
-cidades <- read_parquet("./bd_tele_processed/cidades.gz.parquet") # cidades processada em parquet
-cidades_geobr <- readRDS("./extra_data/cidades_geobr.rds") # Dados das cidades Brasileiras previamente capturados com o geobr (vide grab_cities_geobr.R)
+matriz_od_aerea <- read_parquet("./data/bd_tele_processed/matriz_od_aerea.gz.parquet") # matriz aérea processada em parquet
+cidades <- read_parquet("./data/bd_tele_processed/cidades.gz.parquet") # cidades processada em parquet
+cidades_geobr <- readRDS("./data/extra/cidades_geobr.rds") # Dados das cidades Brasileiras previamente capturados com o geobr (vide grab_cities_geobr.R)
 
 #################################
 # Tratamento dos dados
@@ -76,3 +76,36 @@ ggplot() +
 ###########################################
 # Criação do modelo gravitacional das viagens
 ###########################################
+# Preciso da distância entre os locais
+matriz_od_aerea_summarized$geom_origem <- cidades_joined$geom[match(matriz_od_aerea_summarized$code_origem, cidades_joined$codigo)]
+matriz_od_aerea_summarized$geom_destino <- cidades_joined$geom[match(matriz_od_aerea_summarized$code_destino, cidades_joined$codigo)]
+matriz_od_aerea_summarized$centroid_origem <- st_centroid(matriz_od_aerea_summarized$geom_origem)
+matriz_od_aerea_summarized$centroid_destino <- st_centroid(matriz_od_aerea_summarized$geom_destino)
+# matriz_od_aerea_summarized$distances <- st_distance(matriz_od_aerea_summarized$centroid_origem, matriz_od_aerea_summarized$centroid_destino)
+# matriz_od_aerea_summarized$distancias_m <- as.numeric(matriz_od_aerea_summarized$distances)
+# matriz_od_aerea_summarized$distancias_m <- matriz_od_aerea_summarized$distances[1:nrow(matriz_od_aerea_summarized)]
+# plot1 <- qplot(matriz_od_aerea_summarized$distancias_m, matriz_od_aerea_summarized$viagensTotais)
+# plot1 + stat_function(fun=function(x)x^-2, geom="line", aes(colour="^-2"))
+
+
+calculate_distances <- function(input_od) {
+  dimData <- nrow(input_od)
+  output <- c()
+  for (i in 1:dimData) {
+    output <- append(output, as.numeric(st_distance(input_od$centroid_origem[i], input_od$centroid_destino[i])))
+  }
+  return(output)
+}
+
+whattever <- function(x) {
+  return(x^-2)
+}
+x <- c(matriz_od_aerea_summarized$distance)
+y <- c(matriz_od_aerea_summarized$viagensTotais)
+
+qplot(data.frame(x=x, y)) +
+  stat_function(fun=whattever, geom="line")
+
+# base <- ggplot()
+base <- qplot(matriz_od_aerea_summarized$distance, matriz_od_aerea_summarized$viagensTotais)
+base + stat_function(data=data.frame(y), fun = whattever, geom="line", aes(colour="^-2"))

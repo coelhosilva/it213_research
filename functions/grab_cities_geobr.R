@@ -3,7 +3,7 @@ library(arrow)
 
 '%!in%' <- function(x,y)!('%in%'(x,y)) # definição da função "not in"
 
-cidades <- read_parquet("./bd_tele_processed/cidades.gz.parquet")
+cidades <- read_parquet("./data/bd_tele_processed/cidades.gz.parquet")
 
 # check da existência da variável caso a função precise ser rodada novamente por timeout
 if (!exists("output_cidades_geobr")) {

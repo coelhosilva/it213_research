@@ -6,12 +6,12 @@ library(arrow)
 
 # Loading data
 matriz_od_aerea <-
-  read_parquet("./bd_tele_processed/matriz_od_aerea.gz.parquet")
+  read_parquet("./data/bd_tele_processed/matriz_od_aerea.gz.parquet")
 matriz_od_nao_aerea <-
-  read_parquet("./bd_tele_processed/matriz_od_nao_aerea.gz.parquet")
+  read_parquet("./data/bd_tele_processed/matriz_od_nao_aerea.gz.parquet")
 aeroportos <-
-  read_parquet("./bd_tele_processed/aeroportos.gz.parquet")
-cidades <- read_parquet("./bd_tele_processed/cidades.gz.parquet")
+  read_parquet("./data/bd_tele_processed/aeroportos.gz.parquet")
+cidades <- read_parquet("./data/bd_tele_processed/cidades.gz.parquet")
 
 # teste <-
 #   matriz_od_nao_aerea %>% group_by(idUTPorigemunicipio, idUTPdestinounicipio) %>% summarize(viagensTotais = sum(quantidadeviagem))

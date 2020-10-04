@@ -26,7 +26,6 @@ header-includes:
 classoption: a4paper
 spacing: double
 subtitle: Análise de dados exploratória e construção de um modelo inicial.
-bibliography: refs.bib
 ---
 
 ```{r setwd, include=FALSE}
@@ -68,6 +67,7 @@ library(dplyr)
 library(sf)
 library(stplanr)
 library(tidyr)
+library(here)
 ```
 
 ## Leitura dos dados
@@ -75,9 +75,10 @@ library(tidyr)
 Em seguida, podemos fazer a importação dos dados. Os *data frames* de **matriz_od_aerea** e **cidades** foram previamente processada e salva em um arquivo .parquet para possibilitar uma leitura mais eficiente. O dataframe **cidades_geobr** consiste nos dados extraídos da biblioteca geobr, e contém os dados de mapeamento dos municípios.
 
 ```{r importing_data}
-matriz_od_aerea <- read_parquet("./bd_tele_processed/matriz_od_aerea.gz.parquet") # matriz aérea processada em parquet
-cidades <- read_parquet("./bd_tele_processed/cidades.gz.parquet") # cidades processada em parquet
-cidades_geobr <- readRDS("./extra_data/cidades_geobr.rds") # Dados das cidades Brasileiras previamente capturados com o geobr (vide grab_cities_geobr.R)
+print(getwd())
+matriz_od_aerea <- read_parquet(here("data/bd_tele_processed/matriz_od_aerea.gz.parquet")) # matriz aérea processada em parquet
+cidades <- read_parquet(here("data/bd_tele_processed/cidades.gz.parquet")) # cidades processada em parquet
+cidades_geobr <- readRDS(here("data/extra/cidades_geobr.rds")) # Dados das cidades Brasileiras previamente capturados com o geobr (vide grab_cities_geobr.R)
 ```
 
 ## Tratamento dos dados
