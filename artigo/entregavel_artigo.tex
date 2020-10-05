@@ -84,9 +84,9 @@ The text of your abstract. 200 or fewer words.
 \hypertarget{introduuxe7uxe3o}{%
 \section{Introdução}\label{introduuxe7uxe3o}}
 
-A previsão de demanda de passageiros é um assunto multidisciplinar cujos
-resultados podem auxiliar vários participantes do mercado de transporte
-aéreo.
+A previsão de demanda de passageiros é um objeto de pesquisa
+multidisciplinar cujos resultados podem auxiliar vários participantes do
+mercado de transporte aéreo.
 
 Do ponto de vista das linhas aéreas, a previsão de demanda de
 passageiros pode ser utilizada para auxiliar na definição de novas
@@ -97,7 +97,7 @@ exemplo.
 Existem diversas metodologias para a estimativa do volume de passageiros
 em dado período de tempo. Na prática, é comum que a parte interessada
 compare a previsão feita por mais de um modelo ao traduzir as
-estimativas para uma decisão de negócio.
+estimativas para uma decisão de negócio \citep{Grosche2007}.
 
 Dessa forma, justifica-se um estudo que compare diferentes modelos para
 a previsão de demanda. Neste estudo, dois modelos foram construídos e
@@ -128,6 +128,28 @@ ser construído a partir de variáveis econômicas ou sociais
 geoeconômica, como população e distribuição de renda, ou relacionadas ao
 serviço de transporte aéreo em si, como preço de passagens, ou
 conveniências disponíveis no aeroporto.
+
+A equação clássica do modelo gravitacional é dada por:
+
+\[T_{ij} = k V_i^\mu W_j^\alpha d_{ij}^{-\beta} \]
+
+onde:
+
+\begin{itemize}
+\tightlist
+\item
+  \(T_{ij}\) é o fluxo entre a origem e o destino;
+\item
+  \(V_i\) é a \enquote{emissibilidade} da origem;
+\item
+  \(W_j\) é a \enquote{atratividade} do destino;
+\item
+  \(d_{ij}\) é a resistência ao fluxo - como a distância;
+\item
+  k é a constante de proporcionalidade;
+\item
+  \(\mu\), \(\alpha\) e \(\beta\) são os parâmetros do modelo.
+\end{itemize}
 
 \hypertarget{modelos-de-machine-learning}{%
 \subsection{\texorpdfstring{Modelos de \emph{machine

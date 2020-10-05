@@ -68,11 +68,11 @@ Perguntas a serem respondidas aqui:
   - Quais dados vamos utilizar, de maneira geral?
 -->
 
-A previsão de demanda de passageiros é um assunto multidisciplinar cujos resultados podem auxiliar vários participantes do mercado de transporte aéreo.
+A previsão de demanda de passageiros é um objeto de pesquisa multidisciplinar cujos resultados podem auxiliar vários participantes do mercado de transporte aéreo.
 
 Do ponto de vista das linhas aéreas, a previsão de demanda de passageiros pode ser utilizada para auxiliar na definição de novas rotas. Para administradores de aeroportos, os resultados têm aplicabilidade  quanto à estimativa dos requisitos de infraestrutura, por exemplo.
 
-Existem diversas metodologias para a estimativa do volume de passageiros em dado período de tempo. Na prática, é comum que a parte interessada compare a previsão feita por mais de um modelo ao traduzir as estimativas para uma decisão de negócio.
+Existem diversas metodologias para a estimativa do volume de passageiros em dado período de tempo. Na prática, é comum que a parte interessada compare a previsão feita por mais de um modelo ao traduzir as estimativas para uma decisão de negócio [@Grosche2007].
 
 Dessa forma, justifica-se um estudo que compare diferentes modelos para a previsão de demanda. Neste estudo, dois modelos foram construídos e avaliados: o modelo gravitacional, pioneiro e amplamente utilizado, e um modelo de aprendizagem de máquina (TODO: escolher qual modelo e citar especificamente).
 
@@ -104,9 +104,22 @@ Os modelos foram construídos tendo como variáveis independentes dados geoecon�
 
 <!-- Procurar artigo de jorge-calderón. -->
 
-Os modelos gravitacionais foram os modelos causais pioneiros para a previsão de tráfego aéreo. Sua utilizados para explicar como o tráfego se distribui nos pares-cidade, indicando o comportamento dos viajantes.
+Os modelos gravitacionais foram os modelos causais pioneiros para a previsão do volume de passageiros. Sua utilizados para explicar como o tráfego se distribui nos pares-cidade, indicando o comportamento dos viajantes.
 
-A hipótese fundamental dos modelos gravitacionais é a de que ele pode ser construído a partir de variáveis econômicas ou sociais [@Grosche2007]. Não obstante essas variáveis podem ser de natureza geoeconômica, como população e distribuição de renda, ou relacionadas ao serviço de transporte aéreo em si, como preço de passagens, ou conveniências disponíveis no aeroporto.
+A hipótese fundamental dos modelos gravitacionais é a de que ele pode ser construído a partir de variáveis econômicas ou sociais [@Grosche2007]. Não obstante, essas variáveis podem ser de natureza geoeconômica, como população e distribuição de renda, ou relacionadas ao serviço de transporte aéreo em si, como preço de passagens, ou conveniências disponíveis no aeroporto.
+
+A equação clássica do modelo gravitacional é dada por:
+
+$$T_{ij} = k V_i^\mu W_j^\alpha d_{ij}^{-\beta} $$
+
+onde:
+
+* $T_{ij}$ é o fluxo entre a origem e o destino;
+* $V_i$ é a "emissibilidade" da origem;
+* $W_j$ é a "atratividade" do destino;
+* $d_{ij}$ é a resistência ao fluxo - como a distância;
+* k é a constante de proporcionalidade;
+* $\mu$, $\alpha$ e $\beta$ são os parâmetros do modelo.
 
 ## Modelos de *machine learning*
 
