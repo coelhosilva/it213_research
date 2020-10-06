@@ -94,16 +94,17 @@ rotas. Para administradores de aeroportos, os resultados têm
 aplicabilidade quanto à estimativa dos requisitos de infraestrutura, por
 exemplo.
 
-Existem diversas metodologias para a estimativa do volume de passageiros
-em dado período de tempo. Na prática, é comum que a parte interessada
+Existem diversas metodologias para estimar o volume de passageiros em
+dado período de tempo. Na prática, é comum que a parte interessada
 compare a previsão feita por mais de um modelo ao traduzir as
-estimativas para uma decisão de negócio \citep{Grosche2007}.
+estimativas para uma decisão de negócio \citep{Grosche2007}. Dessa
+forma, justifica-se um estudo que compare diferentes modelos para a
+previsão de demanda.
 
-Dessa forma, justifica-se um estudo que compare diferentes modelos para
-a previsão de demanda. Neste estudo, dois modelos foram construídos e
-avaliados: o modelo gravitacional, pioneiro e amplamente utilizado, e
-modelos de aprendizagem de máquina, com a utilização de redes neurais e
-regressão linear múltipla.
+Neste estudo, três modelos foram construídos e avaliados: o modelo
+gravitacional, pioneiro e amplamente utilizado, e modelos de
+aprendizagem de máquina, um de redes neurais, e o outro com a utilização
+de regressão linear múltipla.
 
 Os modelos foram construídos tendo como variáveis independentes dados
 geoeconômicos, disponibilizados pelo \citet{atlasIpea}. O volume real de
@@ -157,7 +158,7 @@ A utilização do modelo gravitacional para a modelagem do volume de
 passageiros no transporte aéreo é vasta na literatura.
 \citet{Nommik2016} desenvolveram um modelo gravitacional para a
 modelagem do volume de passageiros em rotas reginais, aplicado ao
-Aeroporto de Tallinn (EETN). \citet{Nommik2016} utilizaram variáveis
+Aeroporto de Tallinn (EETN). Na pesquisa, utilizaram variáveis
 relacionadas ao serviço na construção do modelo, e demonstraram que o
 modelo gravitacional pode ser uma ferramenta simples e efetiva para uma
 análise primária conduzida por planejadores de rota na linha aérea.
@@ -171,9 +172,9 @@ estatisticamente.
 \subsection{\texorpdfstring{Modelos de \emph{machine
 learning}}{Modelos de machine learning}}\label{modelos-de-machine-learning}}
 
-Ainda que menos utilizado que o modelo gravitacional para a modelagem de
-volume de passageiros, encontram-se na literatura aplicações de modelos
-de \emph{machine learning} nesse contexto.
+Embora que menos utilizado que o modelo gravitacional para a modelagem
+de volume de passageiros, encontram-se na literatura aplicações de
+modelos de \emph{machine learning} nesse contexto.
 
 \citet{pourebrahim2018} estudaram um modelo gravitacional e outro de
 rede neural para a predição de fluxo de passageiros. Ainda que o foco do
