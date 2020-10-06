@@ -14,6 +14,8 @@ keywords:
 # 3 to 6 keywords, that do not appear in the title
 - Modelo gravitacional
 - Machine Learning
+- Rede neural
+- Regressão linear múltipla
 
 abstract: |
   The text of your abstract.  200 or fewer words.
@@ -74,9 +76,9 @@ Do ponto de vista das linhas aéreas, a previsão de demanda de passageiros pode
 
 Existem diversas metodologias para a estimativa do volume de passageiros em dado período de tempo. Na prática, é comum que a parte interessada compare a previsão feita por mais de um modelo ao traduzir as estimativas para uma decisão de negócio [@Grosche2007].
 
-Dessa forma, justifica-se um estudo que compare diferentes modelos para a previsão de demanda. Neste estudo, dois modelos foram construídos e avaliados: o modelo gravitacional, pioneiro e amplamente utilizado, e um modelo de aprendizagem de máquina (TODO: escolher qual modelo e citar especificamente).
+Dessa forma, justifica-se um estudo que compare diferentes modelos para a previsão de demanda. Neste estudo, dois modelos foram construídos e avaliados: o modelo gravitacional, pioneiro e amplamente utilizado, e modelos de aprendizagem de máquina, com a utilização de redes neurais e regressão linear múltipla.
 
-Os modelos foram construídos tendo como variáveis independentes dados geoeconômicos (TODO: citar fonte do IBGE/IPEA). O volume real de passageiros utilizado é o disponível na matriz origem-destino construída a partir dos dados de telefonia móvel. (TODO: citar a fonte da base de dados. Horus?).
+Os modelos foram construídos tendo como variáveis independentes dados geoeconômicos, disponibilizados pelo @atlasIpea. O volume real de passageiros utilizado é o disponível na matriz origem-destino construída a partir dos dados de telefonia móvel, disponibilizados na base de dados Hórus.
 
 
 # Modelos de previsão de demanda
@@ -104,11 +106,11 @@ Os modelos foram construídos tendo como variáveis independentes dados geoecon�
 
 <!-- Procurar artigo de jorge-calderón. -->
 
-Os modelos gravitacionais foram os modelos causais pioneiros para a previsão do volume de passageiros. Sua utilizados para explicar como o tráfego se distribui nos pares-cidade, indicando o comportamento dos viajantes.
+Os modelos gravitacionais foram os modelos causais pioneiros para a previsão do volume de passageiros [@Grosche2007]. Sua utilizados para explicar como o tráfego se distribui nos pares-cidade, indicando o comportamento dos viajantes.
 
-A hipótese fundamental dos modelos gravitacionais é a de que ele pode ser construído a partir de variáveis econômicas ou sociais [@Grosche2007]. Não obstante, essas variáveis podem ser de natureza geoeconômica, como população e distribuição de renda, ou relacionadas ao serviço de transporte aéreo em si, como preço de passagens, ou conveniências disponíveis no aeroporto.
+De acordo com @Grosche2007, a hipótese fundamental dos modelos gravitacionais é a de que ele pode ser construído a partir de variáveis econômicas ou sociais. Não obstante, essas variáveis podem ser de natureza geoeconômica, como população e distribuição de renda, ou relacionadas ao serviço de transporte aéreo em si, como preço de passagens, ou conveniências disponíveis no aeroporto.
 
-A equação clássica do modelo gravitacional é dada por:
+A equação clássica do modelo gravitacional é dada, para um par-cidade, por:
 
 $$T_{ij} = k V_i^\mu W_j^\alpha d_{ij}^{-\beta} $$
 
@@ -121,15 +123,21 @@ onde:
 * k é a constante de proporcionalidade;
 * $\mu$, $\alpha$ e $\beta$ são os parâmetros do modelo.
 
+A utilização do modelo gravitacional para a modelagem do volume de passageiros no transporte aéreo é vasta na literatura. @Nommik2016 desenvolveram um modelo gravitacional para a modelagem do volume de passageiros em rotas reginais, aplicado ao Aeroporto de Tallinn (EETN). @Nommik2016 utilizaram variáveis relacionadas ao serviço na construção do modelo, e demonstraram que o modelo gravitacional pode ser uma ferramenta simples e efetiva para uma análise primária conduzida por planejadores de rota na linha aérea. @Grosche2007 propuseram modelos gravitacionais uitilizando variáveis geoeconômicas, visando a aplicabilidade do modelo em pares-cidade que atualmente não possuam rotas estabelecidas. Os dois modelos propostos apresentaram erro baixo e foram validados estatisticamente.
+
 ## Modelos de *machine learning*
 
-Explicar sobre os modelos de machine learning.
+Ainda que menos utilizado que o modelo gravitacional para a modelagem de volume de passageiros, encontram-se na literatura aplicações de modelos de *machine learning* nesse contexto.
+
+@pourebrahim2018 estudaram um modelo gravitacional e outro de rede neural para a predição de fluxo de passageiros. Ainda que o foco do estudo tenha sido a melhora das predições com a utilização de dados de redes sociais, a comparação entre os modelos foi apresentada. De acordo com os autores, em termos da Raiz do Erro Quadrático Médio (RMSE, do inglês *Root Mean Squared Error*), o modelo gravitacional apresentou resultados melhores, enquanto o modelo de rede neural apresentou um coeficiente de determinação ($R^2$) mais elevado.
+
+@erjongmanee2018 comparam modelos de regressão linear múltipla e rede neural com o gravitacional para o volume de passageiros doméstico na Tailândia. Tanto os modelos de regressão linear múltipla como os de rede neural apresentaram erros baixos.
 
 # Desenvolvimento dos modelos
 
 ## Consolidação dos dados
 
-Talvez seja benéfico tratar da parte comum e de decisões que afetem os dois modelos em uma seção unificada.
+Talvez seja benéfico tratar da parte comum e de decisões que afetem os dois modelos em uma seção unificada. Exemplo: variáveis geoeconômicas utilizadas.
 
 ## Modelo gravitacional
 <!-- Para o modelo gravitacional, escolheu-se a representação por variáveis que descrevam a atividade econômica e característica geográfica dos pares-cidade, e não variáveis relacioadas às características do serviço aéreo por isso. Isso foi feito a fim de possibilitar a geração de um modelo aplicável a pares-cidade os quais não existam rotas estabelecidas. (TODO: citar Grosche) -->
@@ -140,10 +148,17 @@ Explicar as análises feitas para o desenvolvimento do modelo gravitacional. Aqu
 
 ## Modelos de *machine learning*
 
-Explicar as análises feitas para o desenvolvimento do modelo.
+Explicar as análises feitas para o desenvolvimento dos modelos de machine learning.
 
+### Regressão linear
 
-```{r figuraExemplo, echo=FALSE , message=FALSE, fig.cap="Título da figura", out.width = "100%", fig.align="center",fig.pos = 'H'}
+Inserir desenvolvimentos.
+
+### Rede neural
+
+Inserir desenvolvimentos.
+
+```{r figuraExemplo, echo=FALSE , message=FALSE, fig.cap="Figura de amostra", out.width = "100%", fig.align="center",fig.pos = 'H'}
 
 knitr::include_graphics("../figures/sample_figure_1.png")
 
@@ -152,18 +167,4 @@ knitr::include_graphics("../figures/sample_figure_1.png")
 # Conclusões
 
 Conclusão dos resultados obtidos.
-
-
-# Template
-
-```{r tagDaFigura, echo=FALSE , message=FALSE, fig.cap="Título da figura", out.width = "100%", fig.align="center",fig.pos = 'H'}
-
-# plot_grid(charts_pax_distMean[[3]], 
-#           charts_pax_distMean[[4]], 
-#           labels = c("DEP", "ARR"),
-#           label_size = 8,
-#           hjust = 0,
-#           ncol = 1)
-```
-
 

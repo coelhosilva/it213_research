@@ -75,7 +75,7 @@ The text of your abstract. 200 or fewer words.
 \end{abstract}
 
 \noindent%
-{\it Keywords:} Modelo gravitacional, Machine Learning
+{\it Keywords:} Modelo gravitacional, Machine Learning, Rede neural, Regressão linear múltipla
 \vfill
 
 \newpage
@@ -101,15 +101,15 @@ estimativas para uma decisão de negócio \citep{Grosche2007}.
 
 Dessa forma, justifica-se um estudo que compare diferentes modelos para
 a previsão de demanda. Neste estudo, dois modelos foram construídos e
-avaliados: o modelo gravitacional, pioneiro e amplamente utilizado, e um
-modelo de aprendizagem de máquina (TODO: escolher qual modelo e citar
-especificamente).
+avaliados: o modelo gravitacional, pioneiro e amplamente utilizado, e
+modelos de aprendizagem de máquina, com a utilização de redes neurais e
+regressão linear múltipla.
 
 Os modelos foram construídos tendo como variáveis independentes dados
-geoeconômicos (TODO: citar fonte do IBGE/IPEA). O volume real de
+geoeconômicos, disponibilizados pelo \citet{atlasIpea}. O volume real de
 passageiros utilizado é o disponível na matriz origem-destino construída
-a partir dos dados de telefonia móvel. (TODO: citar a fonte da base de
-dados. Horus?).
+a partir dos dados de telefonia móvel, disponibilizados na base de dados
+Hórus.
 
 \hypertarget{modelos-de-previsuxe3o-de-demanda}{%
 \section{Modelos de previsão de
@@ -119,17 +119,19 @@ demanda}\label{modelos-de-previsuxe3o-de-demanda}}
 \subsection{Modelo gravitacional}\label{modelo-gravitacional}}
 
 Os modelos gravitacionais foram os modelos causais pioneiros para a
-previsão de tráfego aéreo. Sua utilizados para explicar como o tráfego
-se distribui nos pares-cidade, indicando o comportamento dos viajantes.
+previsão do volume de passageiros \citep{Grosche2007}. Sua utilizados
+para explicar como o tráfego se distribui nos pares-cidade, indicando o
+comportamento dos viajantes.
 
-A hipótese fundamental dos modelos gravitacionais é a de que ele pode
-ser construído a partir de variáveis econômicas ou sociais
-\citep{Grosche2007}. Não obstante essas variáveis podem ser de natureza
-geoeconômica, como população e distribuição de renda, ou relacionadas ao
-serviço de transporte aéreo em si, como preço de passagens, ou
-conveniências disponíveis no aeroporto.
+De acordo com \citet{Grosche2007}, a hipótese fundamental dos modelos
+gravitacionais é a de que ele pode ser construído a partir de variáveis
+econômicas ou sociais. Não obstante, essas variáveis podem ser de
+natureza geoeconômica, como população e distribuição de renda, ou
+relacionadas ao serviço de transporte aéreo em si, como preço de
+passagens, ou conveniências disponíveis no aeroporto.
 
-A equação clássica do modelo gravitacional é dada por:
+A equação clássica do modelo gravitacional é dada, para um par-cidade,
+por:
 
 \[T_{ij} = k V_i^\mu W_j^\alpha d_{ij}^{-\beta} \]
 
@@ -151,11 +153,41 @@ onde:
   \(\mu\), \(\alpha\) e \(\beta\) são os parâmetros do modelo.
 \end{itemize}
 
+A utilização do modelo gravitacional para a modelagem do volume de
+passageiros no transporte aéreo é vasta na literatura.
+\citet{Nommik2016} desenvolveram um modelo gravitacional para a
+modelagem do volume de passageiros em rotas reginais, aplicado ao
+Aeroporto de Tallinn (EETN). \citet{Nommik2016} utilizaram variáveis
+relacionadas ao serviço na construção do modelo, e demonstraram que o
+modelo gravitacional pode ser uma ferramenta simples e efetiva para uma
+análise primária conduzida por planejadores de rota na linha aérea.
+\citet{Grosche2007} propuseram modelos gravitacionais uitilizando
+variáveis geoeconômicas, visando a aplicabilidade do modelo em
+pares-cidade que atualmente não possuam rotas estabelecidas. Os dois
+modelos propostos apresentaram erro baixo e foram validados
+estatisticamente.
+
 \hypertarget{modelos-de-machine-learning}{%
 \subsection{\texorpdfstring{Modelos de \emph{machine
 learning}}{Modelos de machine learning}}\label{modelos-de-machine-learning}}
 
-Explicar sobre os modelos de machine learning.
+Ainda que menos utilizado que o modelo gravitacional para a modelagem de
+volume de passageiros, encontram-se na literatura aplicações de modelos
+de \emph{machine learning} nesse contexto.
+
+\citet{pourebrahim2018} estudaram um modelo gravitacional e outro de
+rede neural para a predição de fluxo de passageiros. Ainda que o foco do
+estudo tenha sido a melhora das predições com a utilização de dados de
+redes sociais, a comparação entre os modelos foi apresentada. De acordo
+com os autores, em termos da Raiz do Erro Quadrático Médio (RMSE, do
+inglês \emph{Root Mean Squared Error}), o modelo gravitacional
+apresentou resultados melhores, enquanto o modelo de rede neural
+apresentou um coeficiente de determinação (\(R^2\)) mais elevado.
+
+\citet{erjongmanee2018} comparam modelos de regressão linear múltipla e
+rede neural com o gravitacional para o volume de passageiros doméstico
+na Tailândia. Tanto os modelos de regressão linear múltipla como os de
+rede neural apresentaram erros baixos.
 
 \hypertarget{desenvolvimento-dos-modelos}{%
 \section{Desenvolvimento dos
@@ -165,7 +197,8 @@ modelos}\label{desenvolvimento-dos-modelos}}
 \subsection{Consolidação dos dados}\label{consolidauxe7uxe3o-dos-dados}}
 
 Talvez seja benéfico tratar da parte comum e de decisões que afetem os
-dois modelos em uma seção unificada.
+dois modelos em uma seção unificada. Exemplo: variáveis geoeconômicas
+utilizadas.
 
 \hypertarget{modelo-gravitacional-1}{%
 \subsection{Modelo gravitacional}\label{modelo-gravitacional-1}}
@@ -178,7 +211,18 @@ dos parâmetros, quantificação dos erros e validação da hipótese nula.
 \subsection{\texorpdfstring{Modelos de \emph{machine
 learning}}{Modelos de machine learning}}\label{modelos-de-machine-learning-1}}
 
-Explicar as análises feitas para o desenvolvimento do modelo.
+Explicar as análises feitas para o desenvolvimento dos modelos de
+machine learning.
+
+\hypertarget{regressuxe3o-linear}{%
+\subsubsection{Regressão linear}\label{regressuxe3o-linear}}
+
+Inserir desenvolvimentos.
+
+\hypertarget{rede-neural}{%
+\subsubsection{Rede neural}\label{rede-neural}}
+
+Inserir desenvolvimentos.
 
 \begin{figure}[H]
 
@@ -186,7 +230,7 @@ Explicar as análises feitas para o desenvolvimento do modelo.
 
 }
 
-\caption{Título da figura}\label{fig:figuraExemplo}
+\caption{Figura de amostra}\label{fig:figuraExemplo}
 \end{figure}
 
 \hypertarget{conclusuxf5es}{%
