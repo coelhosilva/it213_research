@@ -28,6 +28,7 @@ header-includes:
 - \usepackage{float}
 - \usepackage{xcolor}
 - \floatplacement{figure}{H}
+- \usepackage{multicol}
 bibliography: refs.bib
 output: rticles::asa_article
 ---

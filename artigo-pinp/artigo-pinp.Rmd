@@ -1,0 +1,224 @@
+---
+title: Comparação de modelos para a estimativa de volume de passageiros com base na matriz origem-destino da telefonia móvel
+
+# Use letters for affiliations
+author:
+  - name: Fernando Antônio Pavão
+    affiliation: a
+  - name: Lucas Coelho e Silva
+    affiliation: a
+
+address:
+  - code: a
+    address: Departamento de Transporte Aéreo, Instituto Tecnológico de Aeronáutica
+  # - code: b
+  #   address: Department of Neat Tricks, Whereever State University, Someplace, MC, 67890
+    
+# Optional: line of arbitrary text with additional information.
+# Could be used, for example, to mention the bibliographic info in a post-print.
+# If not specified, defaults to "This version was compiled on \today"
+#date_subtitle: Published in *Journal of Statistical Software*, 2018
+
+# For footer text  TODO(fold into template, allow free form two-authors)
+# lead_author_surname: Pavão and Coelho
+
+# Place eg a DOI URL or CRAN Package URL here
+doi_footer: "https://dx.doi.org/prefix/suffix"
+
+# Abstract
+abstract: |
+  Your abstract will be typeset here, and used by default a visually distinctive font.
+  An abstract should explain to the general reader the major contributions of the article. 
+
+# Optional: Acknowledgements
+acknowledgements: |
+  Sample acknowledgements: this template package builds upon, and extends, the work of the excellent
+  [rticles](https://cran.r-project.org/package=rticles) package, and both packages rely on the
+  [PNAS LaTeX](http://www.pnas.org/site/authors/latex.xhtml) macros. Both these sources are
+  gratefully acknowledged as this work would not have been possible without them.
+
+# Optional: One or more keywords
+keywords:
+  - Modelo gravitacional
+  - Machine Learning
+  - Rede neural
+  - Regressão linear múltipla
+
+# Paper size for the document, values of letter and a4
+papersize: a4
+
+# Font size of the document, values of 9pt (default), 10pt, 11pt and 12pt
+fontsize: 9pt
+
+# Optional: Force one-column layout, default is two-column
+#one_column: true
+
+# Optional: Enables lineno mode, but only if one_column mode is also true
+#lineno: true
+
+# Optional: Enable one-sided layout, default is two-sided
+#one_sided: true
+
+# Optional: Enable section numbering, default is unnumbered
+numbersections: true
+
+# Optional: Specify the depth of section number, default is 5
+#secnumdepth: 5
+
+# Optional: Skip inserting final break between acknowledgements, default is false
+skip_final_break: true
+
+# Optional: Bibliography 
+bibliography: refs
+
+# Optional: Enable a 'Draft' watermark on the document
+#watermark: true
+
+# Customize footer, eg by referencing the vignette
+footer_contents: "IT-213"
+
+# Produce a pinp document
+output: pinp::pinp
+
+# Required: Vignette metadata for inclusion in a package.
+vignette: >
+  %\VignetteIndexEntry{YourPackage-vignetteentry}
+  %\VignetteKeywords{YourPackage, r, anotherkeyword}
+  %\VignettePackage{YourPackage}
+  %\VignetteEngine{knitr::rmarkdown}
+---
+
+# Introdução
+<!-- 
+Perguntas a serem respondidas aqui: 
+  - Explicar sobre o problema, qual é o objetivo de se debruçar sobre esse problema e quais são as abordagens para a solução. Breve introdução aos modelos. 
+  - Por que fazer previsão de demanda? 
+  - Por que utilizar diferentes modelos? (TODO: Grosche)
+  - Quais dados vamos utilizar, de maneira geral?
+-->
+
+Com 4,3 bilhões de passageiros e 58 milhões de toneladas de carga transportados, 65 milhões de empregos diretos e indiretos, e um impacto econômico global de 2.7 trilhões de dólares em 2019, a importância do transporte aéreo para a sociedade e seu papel de facilitador para o desenvolvimento econômico são evidentes [@ihlg_aviation_2019].
+
+Peça fundamental para o direcionamento adequado e dimensionamento das necessidades do setor de transporte aéreo são os estudos de previsão de demandas de passageiros, principalmente levando em conta o contexto de constantes mudanças na sociedade e ciclos econômicos, aliados a um mercado da aviação competitivo com margens de lucro estreitas [@srisaeng_forecasting_2015].
+
+A previsão de demanda de passageiros é um objeto de pesquisa multidisciplinar cujos resultados podem embasar decisões de vários participantes do mercado da aviação civil. Para os Estados e entidades formadoras de políticas públicas, esses estudos fundamentam o traçado de planejamento estratégico da malha aeroportuária, e pautam necessidades e investimentos no controle de tráfego aéreo, por exemplo. Do ponto de vista das linhas aéreas, a previsão de demanda de passageiros é importante para a definição de rotas, modelos e frequências das aeronaves. Permitem, ainda, a quantificação dos efeitos dos serviços oferecidos na quantidade de passageiros transportados. Para os fabricantes de aeronaves, os estudos de demanda ajudam no direcionamento da estratégia e escolha dos projetos de aeronaves a serem desenvolvidos. Ademais, os efeitos dos estudos de demanda não se restringem às entidades citadas, pautando também decisões nos fabricantes de motores aeronáuticos, fornecedores, provedores de serviços, e outros [@icao_doc_2006].
+
+Existem diversas metodologias para estimar a demanda de passageiros na aviação. Em @icao_doc_2006, os métodos de previsão são divididos em três categorias quanto a técnica: quantitativas, qualitativas, e análises de decisão. A técnica quantitativa, ou matemática, é subsequentemente dividida em análises de séries temporais e análises causais - aquela que pressupõe uma relação de causa e efeito -, o foco deste artigo.
+
+@icao_doc_2006 cita como exemplo de modelos causais os modelos econométricos de regressão - interpretado também na literatura como um modelo de *machine learning* [@erjongmanee_air_2018] - e modelos de distribuição de tráfego aéreo, sob os quais se encontra o modelo gravitacional. Alternativamente, encontram-se também, na literatura, aplicações modelos de aprendizagem de máquina - principalmente o de redes neurais, como em @blinova_analysis_2007, @alekseev_multivariate_2009, e @pourebrahim_enhancing_2018.
+
+Na prática, é comum que a parte interessada compare a previsão feita por mais de um modelo ao traduzir as estimativas para uma decisão de negócio [@grosche_gravity_2007]. Dessa forma, justifica-se um estudo que compare diferentes modelos para a previsão de demanda.
+
+A escolha por modelos causais está ancorada na base de dados utilizada. Em 2020, a Secretaria Nacional de Aviação Civil, em parceria com o Laboratório de Transportes e Logística da Universidade Federal de Santa Catarina (UFSC) disponibilizaram ao público uma matriz origem destino - incluindo de deslocamentos aéreos - de escala nacional no Brasil. Essa matriz foi elaborada a partir de dados de telefonia móvel inéditos com o objetivo de auxiliar na compreensão da origem verdadeira dos viajantes pelo território nacional [@coordenacao-geral_de_planejamento_pesquisas_e_estudos_da_aviacao_civil_matriz_2020]. Dessa forma, desponta-se uma oportunidade de explorar esses novos dados com a construção de modelos de demanda.
+
+Neste estudo, três modelos foram construídos e avaliados: um modelo gravitacional, um modelo econométrico de regressão linear múltipla e outro de redes neurais, do campo de aprendizagem de máquinas. Os modelos foram construídos tendo como variáveis independentes dados geoeconômicos, disponibilizados pelo @instituto_de_pesquisa_economica_aplicada_atlas_2020.
+
+O artigo está organizado da seguinte maneira: a revisão de trabalhos relacionados está apresentada na seção 2, seguida pela metodologia e detalhamento dos modelos na seção 3. Os resultados são apresentados na seção 4, e, as conclusões, na seção 5.
+
+# Revisão bibliográfica
+
+## Modelos de previsão de demanda {#sec:modelos-demanda-rev}
+
+@icao_doc_2006 divide os modelos quantitativos para previsão de demanda na aviação em duas grandes categorias: análises de séries temporais, como análises de tendência, e métodos causais. Ainda segundo a ICAO (*International Civil Aviation Organization*), enquanto a análise por séries temporais é considerada confiável no curto-prazo, a provável imprecisão e dificuldade de embasamento teórico no longo prazo leva a alternativas que considerem a influência das condições sociais, operacionais e econômicas no desenvolvimento do tráfego aéreo [@icao_doc_2006].
+
+Não obstante, um modelo de séries temporais encontraria dificuldades em lidar com disrupções, como, por exemplo, a pandemia do COVID-19, enquanto um modelo causal - especialmente o de regressão -, que leva em consideração variáveis sociais e econômicas, está melhor fundamentado teoricamente para quantificar a reação do tráfego [@doganis_flying_2005].
+
+Do ponto de vista dos modelos causais, de acordo com @kanafani_transportation_1983, a hipótese fundamental na construção de um modelo de demanda de transporte é a de que a demanda por transportes urbanos está diretamente relacionada com a demanda por atividades urbanas, sendo aquela derivada destas. Isso reflete, conforme @kanafani_transportation_1983, no costumeiro relacionamento direto da demanda por transporte com características socioeconômicas e atributos do sistema de transporte. @jorge-calderon_demand_1997 indica que a literatura define a demanda pelo transporte aéreo como dependente de dois grupos de variáveis - as de natureza geoeconômicas, como população e distribuição de renda, ou aquelas relacionadas ao serviço de transporte aéreo em si, tendo como exemplos os preços de passagens.
+
+Alguns exemplos de modelos causais para a previsão de demanda encontrados na literatura são o modelo gravitacional, modelos econométricos - como o de regressão linear e o os de equações simultâneas-, e modelos de aprendizagem de máquina.
+
+### Modelo gravitacional
+<!-- Passo a passo da construção do modelo: -->
+<!-- * Consolidação dos dados (par-cidade, variáveis independentes, volume medido) -->
+<!-- * Criar uma função que com base nos dados de entrada (train and test) encontre os parâmetros do modelo, avalie a hipótese nula e quantifique o erro. -->
+<!-- * Separação das observações no conjunto de calibração (análogo do *train set*) e conjunto de validação (estimation samples). Avaliação da hipótese nula e dos erros pela métrica escolhida pela função definida.  -->
+<!-- * Testes de estabilidade estrutural dos coeficientes. O coeficiente varia de acordo com o conjunto escolhido? Quanto? -->
+
+<!-- Importante: "modelos gravitacionais deveriam - *as in should* - ser aplicados em conjuntos de dados homogêneos, se possível" -->
+<!-- Há maneiras diferentes de considerar. Ele pode ser direcionado ou não direcionado. A distinção também pode ser feita por parâmetros diferentes para production ou attraction ou apenas com diferentes valores de parâmetros. -->
+
+<!-- Discussão sobre um modelo irrestrito, mas com a ressalva de que os dados de demanda medidos são influenciados pela capacidade de aeronaves e das rotas oferecidas hoje. -->
+
+<!-- Por que utilizar apenas variáveis geo-econômicas? Possibilita a estimatvia em novos mercados. Ao utilizar por variáveis selecionadas a serviço, ficamos à mercê de coisas que estão sempre mudando por causa do mercaado volátil com muitas mudanças devido a competição, preços de combustíveis, modelo de negocios etc. -->
+
+<!-- Grosche segregou rotas típicas de turismo dado que dependem de fatores diferentes das rotas com quantidade significatne de tráfego orientado a negócios. Seria o caso de fazer uma análise de clusterização das rotas?  -->
+<!-- É um modelo causal, um dos pioneiros -->
+<!-- Explicar sobre o modelo gravitacional. Revisão de outros usos como referência. Explicar uso prático. -->
+<!-- O mais amplamente utilizado (TODO: Grosche) -->
+<!-- Explicar os parâmetros que podem ser utilizados. -->
+<!-- Dualidade da distância. -->
+
+Os modelos gravitacionais foram os modelos causais pioneiros para a previsão do volume de passageiros [@grosche_gravity_2007]. Sua utilizados para explicar como o tráfego se distribui nos pares-cidade, indicando o comportamento dos viajantes.
+
+Segundo @grosche_gravity_2007, uma das hipóteses do modelo gravitacional é a de que ele pode ser construído a partir de variáveis econômicas ou sociais, em consonância com os conceitos apresentados por @jorge-calderon_demand_1997 e @kanafani_transportation_1983 apresentados na seção \ref{sec:modelos-demanda-rev}.
+
+A equação clássica do modelo gravitacional é dada, para um par-cidade, por:
+
+\begin{equation}
+T_{ij} = k V_i^\mu W_j^\alpha d_{ij}^{-\beta}
+\end{equation}
+
+onde $T_{ij}$ é o fluxo entre a origem e o destino, $V_i$ é a "emissividade" da origem, $W_j$ é a "atratividade" do destino, $d_{ij}$ é a resistência ao fluxo - como a distância, por exemplo -, k é a constante de proporcionalidade, e $\mu$, $\alpha$ e $\beta$ são os parâmetros do modelo.
+
+A utilização do modelo gravitacional para a modelagem do volume de passageiros no transporte aéreo é vasta na literatura. @nommik_developing_2016 desenvolveram um modelo gravitacional para a modelagem do volume de passageiros em rotas regionais, aplicado ao Aeroporto de Tallinn (EETN). Na pesquisa, utilizaram variáveis relacionadas ao serviço na construção do modelo, e demonstraram que o modelo gravitacional pode ser uma ferramenta simples e efetiva para uma análise primária conduzida por planejadores de rota na linha aérea. @grosche_gravity_2007 propuseram modelos gravitacionais utilizando variáveis geoeconômicas, visando a aplicabilidade do modelo em pares-cidade que atualmente não possuam rotas estabelecidas. Os dois modelos propostos apresentaram erro baixo e foram validados estatisticamente.
+
+Outras aplicações encontradas na literatura são @verleger_models_1972, @cohen_gravity_2016, e @boelrijk_gravity_2019, bem como em referências clássicas como @kanafani_transportation_1983.
+
+### Modelo econométrico
+
+Outra categoria de modelo causal comum e bastante referenciada na literatura são os modelos econométricos. De acordo com a @icao_doc_2006, um modelo econométrico busca explicar a demanda de viagens aéreas - variável dependente - pelas mudanças nas variáveis explanatórias, ou independentes. Exemplos de modelos econométricos são os modelos de regressão linear ou os modelos de equações múltiplas.
+
+Um exemplo clássico na literatura de aplicação de modelos econométricos para estimar a demanda de passageiros no transporte aéreo é encontrado em @jorge-calderon_demand_1997, aplicado ao tráfego aéreo europeu. Nele, o autor constrói um modelo econométrico de equações simultâneas, tendo como variáveis endógenas aquelas representantes da frequência de voos, tamanho da aeronave e tarifa econômica. Ademais, @jorge-calderon_demand_1997 aplicou também variáveis representativas da distância, população, renda, desconto de tarifas, proximidade ou presença de *hubs*, turismo, e se uma rota sobrevoa o mar ou não. O modelo base proposto pelo autor apresentou um coeficiente de determinação ($R^2$) de aproximadamente 0,95.
+
+### Modelos de *machine learning*
+
+Embora menos utilizados que os modelo gravitacional e econométrico para a modelagem de volume de passageiros, encontram-se na literatura aplicações de modelos de *machine learning* nesse contexto. No entanto, a maior parte dos modelos aplicados estão no escopo de análises de séries temporais, ou como parte de um modelo causal envolvendo modelos mais clássicos como o gravitacional.
+
+@blinova_analysis_2007 apresenta a aplicação de redes neurais com o objetivo de prever a expansão da rede de transporte aéreo na Rússia, no curto prazo. Com base em uma sequência de matrizes origem-destino - uma para cada ano - a autora constrói redes do tipo TLFN (*Time-Lagged Feedforward Network*) em uma análise de séries temporais.
+
+Outra aplicação de redes neurais como modelo de previsão do transporte aéreo é apresentada por @alekseev_multivariate_2009. Nesse trabalho, os autores construíram um modelo de rede neural para previsão da demanda, em termos de APK (*passenger kilometers*), em uma série temporal, adotando o cenário brasileiro como um estudo de caso. Segundo @alekseev_multivariate_2009, o modelo de aprendizagem de máquina desenvolvido superou o modelo econométrico tradicional.
+
+Em @erjongmanee_air_2018, modelos de regressão linear múltipla e rede neural derivados dos modelos gravitacionais foram desenvolvidos para estimar o volume de passageiros doméstico na Tailândia. Tanto os modelos de regressão linear múltipla como os de rede neural apresentaram erros baixos. 
+
+A aplicação de um modelo de rede neural que mais se aproxima aos objetivos deste trabalho é dada por @pourebrahim_enhancing_2018. Os autores aplicaram dois modelos gravitacionais e dois modelos de rede neural para a predição de fluxo de passageiros. Ainda que o foco do estudo tenha sido a melhora das predições com a utilização de dados de redes sociais, a comparação entre os modelos foi apresentada. Segundo @pourebrahim_enhancing_2018, em termos da Raiz do Erro Quadrático Médio (RMSE, do inglês *Root Mean Squared Error*), o modelo gravitacional apresentou resultados melhores, enquanto o modelo de rede neural apresentou um coeficiente de determinação ($R^2$) mais elevado.
+
+## Matriz origem-destino
+
+<!-- Inserir detalhes da maneira clássica de se fazer uma matriz OD e vantagens da telefonia móvel. -->
+
+Um dos principais recursos para o planejamento de tráfego e estudos de demanda é a matriz origem-destino (OD) representativa do tráfego entre os pares-cidade.
+
+O processo tradicional de construção de uma matriz OD consiste na condução de pesquisas por amostra de domicílios. No entanto, uma das grandes desvantagens do processo tradicional é o tempo necessário para a obtenção da matriz OD e o custo envolvido [@calabrese_estimating_2011]. Isso gera também uma dificuldade de atualização dos dados [@fekih_data-driven_2020].
+
+Recentemente, métodos alternativos para a construção de matrizes de OD vem sendo aplicados. A construção de matrizes origem-destino por meio de dados da telefonia móvel, por exemplo, é um assunto atual e coberto na literatura em estudos como @calabrese_estimating_2011, @fekih_data-driven_2020, @friedrich_generating_2010 e @mellegard_origindestination-estimation_2011.
+
+No Brasil, uma iniciativa inédita da Secretaria Nacional de Aviação Civil, em parceria com o Laboratório de Transportes e Logística da Universidade Federal de Santa Catarina (UFSC), disponibilizou ao público, em 2020, uma matriz OD de escala nacional, construída a partir dos dados de telefonia móvel [@coordenacao-geral_de_planejamento_pesquisas_e_estudos_da_aviacao_civil_matriz_2020], e representativa dos deslocamentos por meios aéreos e não-aéreos. O objetivo foi a compreensão dos fluxos verdadeiros dos viajantes no país. Este artigo utiliza a matriz OD aérea como fonte da variável dependente a ser estimada nos modelos.
+
+# Desenvolvimento dos modelos
+
+## *Dataset*
+
+Talvez seja benéfico tratar da parte comum e de decisões que afetem os dois modelos em uma seção unificada. Exemplo: variáveis geoeconômicas utilizadas.
+
+Retormar sobre matriz OD, dados do IPEA, quais variáveis são de interesse.
+
+## Modelo gravitacional
+<!-- Para o modelo gravitacional, escolheu-se a representação por variáveis que descrevam a atividade econômica e característica geográfica dos pares-cidade, e não variáveis relacioadas às características do serviço aéreo por isso. Isso foi feito a fim de possibilitar a geração de um modelo aplicável a pares-cidade os quais não existam rotas estabelecidas. (TODO: citar Grosche) -->
+
+<!-- Explicar as análises feitas para o desenvolvimento do modelo. Escolha das variáveis, calibragem dos parâmetros. -->
+
+Explicar as análises feitas para o desenvolvimento do modelo gravitacional. Aqui, tratar da construção do modelo em si, calibragem dos parâmetros, quantificação dos erros e validação da hipótese nula.
+
+Falar da estimativa dos parâmetros pelo método de pseu máxima verossimilhança de poisson (Poisson pseudo-maximum-likelihood), e porque não linearizar com logartimos (vide @martinez-zarzoso_log_2011).
+
+## Modelo econométrico: regressão linear múltipla
+Inserir desenvolvimentos.
+
+
+## Modelo de *machine learning*: rede neural
+
+Explicar as análises feitas para o desenvolvimento dos modelos de machine learning.
+
+# Conclusões
+
+Conclusão dos resultados obtidos.
