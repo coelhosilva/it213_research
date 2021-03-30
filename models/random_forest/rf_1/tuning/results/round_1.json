@@ -1,0 +1,8 @@
+{
+    "mtry": 5,
+    "maxdepth": 10,
+    "minnode": 3,
+    "splitrule": "variance",
+    "rmse": 29203.8165
+}
+

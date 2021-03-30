@@ -1,0 +1,7 @@
+{
+    "mtry": 7,
+    "maxdepth": 15,
+    "minnode": 3,
+    "splitrule": "variance"
+}
+
