@@ -108,7 +108,6 @@ ECONOMIC_VARS = ['ESPVIDA',
 
 df_geo_econ = df_geo_econ[['year', 'ibge_code', 'city_name']+ECONOMIC_VARS]
 df_geo_econ = df_geo_econ.set_index('ibge_code')
-# dict_gini = 
 
 df_od['city_origin'] = df_od['city_origin_id'].map(dict_city_name)
 df_od['city_destination'] = df_od['city_destination_id'].map(dict_city_name)
