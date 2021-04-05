@@ -7,8 +7,8 @@ source(here("models/common_functions.R"))
 
 #### DATA MODELING ####
 ## INPUT
-train <- readRDS(here("data/model_input/train.RDS"))
-valid <- readRDS(here("data/model_input/valid.RDS"))
+train <- readRDS(here("data/data_processed/train.RDS"))
+valid <- readRDS(here("data/data_processed/valid.RDS"))
 
 ## PREP
 X <- c(

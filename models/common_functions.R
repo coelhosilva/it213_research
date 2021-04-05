@@ -9,6 +9,8 @@ plot_prediction_actual_scatter <- function(prediction_df, set_category) {
     ggtitle(stringr::str_glue("Prediction vs real value - ", set_category)) +
     geom_point(aes(x = actual, y = actual,), alpha=0.3, color = "#9999CC") +
     geom_line(aes(x = actual, y = actual,), alpha=0.2, color = "#9999CC") +
+    scale_x_log10() + 
+    scale_y_log10() +
     ylab("Predição") +
     xlab("Valor real")
   

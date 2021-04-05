@@ -6,10 +6,13 @@ library(tidyverse)
 source(here("models/common_functions.R"))
 
 #### DATA MODELING ####
+## MODEL NAME
+MODEL_NAME <- "Gravity-2"
+
 ## INPUT
-train <- readRDS(here("data/model_input/train.RDS"))
-valid <- readRDS(here("data/model_input/valid.RDS"))
-test <- readRDS(here("data/model_input/test.RDS"))
+train <- readRDS(here("data/data_processed/train.RDS"))
+valid <- readRDS(here("data/data_processed/valid.RDS"))
+test <- readRDS(here("data/data_processed/test.RDS"))
 
 ## PREP
 X <- c(
@@ -35,10 +38,10 @@ y_test <- test[, Y]
 #### MODEL TRAINING ####
 ## Insert model training code here.
 model <- glm(
-  total_pax ~ log(population_origin) + log(population_destination) + 
+  total_pax ~ log(distance_km) +
+    log(population_origin) + log(population_destination) +
     log(gdp_per_capita_origin) + log(gdp_per_capita_destination) +
-    log(distance_km) + 
-    log(THEIL_origin) + log(THEIL_destination)
+    log(THEIL_origin) + log(THEIL_destination),
   na.action = na.exclude,
   family = poisson(link = "log"),
   data = train
@@ -78,6 +81,14 @@ print_performance_metrics(y_train,
 # Saving model error
 save_model_error <- FALSE
 if (save_model_error) {
-  error_actual_df$model <- "MODEL-NAME"
-  saveRDS(error_actual_df, "error_df_MODEL_NAME.RDS")
+  MODEL_NAME_FILE_FRIENDLY <-
+    stringr::str_replace(stringr::str_to_lower(MODEL_NAME), "-", "_")
+  prediction_df_test$Model <- MODEL_NAME
+  error_df_test$Model <- MODEL_NAME
+  saveRDS(error_df_test,
+          paste("error_df_", MODEL_NAME_FILE_FRIENDLY, ".RDS", sep = ""))
+  saveRDS(
+    prediction_df_test,
+    paste("test_predictions_", MODEL_NAME_FILE_FRIENDLY, ".RDS", sep = "")
+  )
 }

@@ -6,10 +6,13 @@ library(tidyverse)
 source(here("models/common_functions.R"))
 
 #### DATA MODELING ####
+## MODEL NAME
+MODEL_NAME <- "RF-1"
+
 ## INPUT
-train <- readRDS(here("data/model_input/train.RDS"))
-valid <- readRDS(here("data/model_input/valid.RDS"))
-test <- readRDS(here("data/model_input/test.RDS"))
+train <- readRDS(here("data/data_processed/train.RDS"))
+valid <- readRDS(here("data/data_processed/valid.RDS"))
+test <- readRDS(here("data/data_processed/test.RDS"))
 
 ## PREP
 X <- c(
@@ -77,8 +80,16 @@ print_performance_metrics(y_train,
                           y_test_pred)
 
 # Saving model error
-save_model_error <- FALSE
+save_model_error <- TRUE
 if (save_model_error) {
-  error_actual_df$model <- "MODEL-NAME"
-  saveRDS(error_actual_df, "error_df_MODEL_NAME.RDS")
+  MODEL_NAME_FILE_FRIENDLY <-
+    stringr::str_replace(stringr::str_to_lower(MODEL_NAME), "-", "_")
+  prediction_df_test$Model <- MODEL_NAME
+  error_df_test$Model <- MODEL_NAME
+  saveRDS(error_df_test,
+          paste("error_df_", MODEL_NAME_FILE_FRIENDLY, ".RDS", sep = ""))
+  saveRDS(
+    prediction_df_test,
+    paste("test_predictions_", MODEL_NAME_FILE_FRIENDLY, ".RDS", sep = "")
+  )
 }
